@@ -32,7 +32,7 @@ void _read_triangle(char *data, STL_Triangle *dest) {
 
     dest->attr = attr;
     dest->norm = norm;
-    dest->tri = (Triangle) { v0, v1, v2 };
+    dest->tri = Triangle_init(v0, v1, v2);
 }
 
 int STL_read(char *data, size_t len, STL_Object *dest) {

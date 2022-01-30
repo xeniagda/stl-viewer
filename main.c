@@ -37,7 +37,7 @@ char *BRIGHTNESS[] = {
 };
 
 int HEIGHT = 50;
-int WIDTH = 100;
+int WIDTH = 70;
 
 void display(Scene *scene) {
     char output_buf[50000];
@@ -46,7 +46,7 @@ void display(Scene *scene) {
     for (float ry = 0; ry < HEIGHT; ry++) {
         for (float rx = 0; rx < WIDTH; rx++) {
             float vy = -(2 * (ry / HEIGHT) - 1);
-            float vx = 2 * (rx / WIDTH) - 1;
+            float vx = 0.7 * (2 * (rx / WIDTH) - 1);
 
             Ray r = Scene_get_ray(scene, vx, vy);
             Triangle *coll = Scene_cast_ray(scene, &r);
@@ -89,6 +89,8 @@ int main(int argc, char *argv[]) {
     char *data = malloc(f_size);
     fread(data, f_size, 1, test_file);
 
+    fclose(test_file);
+
     STL_Object stl;
     int err;
     if ((err = STL_read(data, f_size, &stl))) {
@@ -101,13 +103,17 @@ int main(int argc, char *argv[]) {
 
     clock_t start = clock();
 
-    for (int t = 0; ; t++) {
-        float f = (float) t * 6.28 / 100;
+    for (int i = 0; ; i++ ) {
+        clock_t cur = clock();
+
+        float time_delta = ((float) (cur - start)) / CLOCKS_PER_SEC;
+
+        float f = (float) time_delta * 6.28 / 10;
         float r = 234;
 
         Scene scene = {
             .obj = stl,
-            .light_source = { 100, 0, 0 },
+            .light_source = { 100, 100, 62 }, // { r * sin(f+1), r * cos(f+1), 50  },
             .camera_origin = { -r * sin(f), -r * cos(f), 62 },
             .camera_map = {
                 .col1 = { cos(f), sin(f), 0 },
@@ -120,11 +126,7 @@ int main(int argc, char *argv[]) {
         printf("\033[1;1H");
         display(&scene);
 
-        clock_t cur = clock();
-
-        float time_delta = ((float) (cur - start)) / CLOCKS_PER_SEC;
-
-        printf("\033[38;5;244m%.1f FPS     \n", t / time_delta);
+        printf("\033[38;5;244m%.1f FPS | %s   \n", i / time_delta, path);
 
         if (time_delta > 10) {
             return 100;

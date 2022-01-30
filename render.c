@@ -22,6 +22,14 @@ Triangle *Scene_cast_ray(Scene *s, Ray *r) {
     for (int i = 0; i < s->obj.n_tris; i++) {
         Triangle *tri = &(s->obj.tris[i].tri);
 
+        Vector ov0 = Vector_sub(r->origin, tri->v0);
+        float ov0_dis_sq = Vector_dot_multiply(ov0, ov0);
+
+        // assume the triangle width is not more than 1% of the distance to the triangle
+        if (ov0_dis_sq > closest * closest * 1.01) {
+            continue;
+        }
+
         Intersection_coords intersection;
         int hit = Triangle_Ray_intersection(tri, r, &intersection);
         if (hit == 1) { // no intersection

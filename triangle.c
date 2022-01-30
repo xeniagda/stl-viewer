@@ -7,11 +7,14 @@
 #define EPSILON 0.0001
 
 Vector Triangle_get_normal(Triangle *t) {
-    Vector u = Vector_sub(t->v1, t->v0);
-    Vector v = Vector_sub(t->v2, t->v0);
-    return Vector_cross_multiply(u, v);
+    Vector e1 = Vector_sub(t->v1, t->v0);
+    Vector e2 = Vector_sub(t->v2, t->v0);
+    return Vector_cross_multiply(e1, e2);
 }
 
+Triangle Triangle_init(Vector v0, Vector v1, Vector v2) {
+    return (Triangle) { v0, v1, v2 };
+}
 // from https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
 // 0 = intersection, 1 = no intersection
 int Triangle_Ray_intersection(Triangle *tri, Ray *r, Intersection_coords *res) {

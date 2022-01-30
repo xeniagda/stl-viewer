@@ -9,6 +9,8 @@ typedef struct {
     Vector v0, v1, v2;
 } Triangle;
 
+Triangle Triangle_init(Vector v0, Vector v1, Vector v2);
+
 Vector Triangle_get_normal(Triangle *t);
 
 typedef struct {
