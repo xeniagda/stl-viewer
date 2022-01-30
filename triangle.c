@@ -27,7 +27,7 @@ int Triangle_Ray_intersection(Triangle *tri, Ray *r, Intersection_coords *res) {
     Vector q = Vector_cross_multiply(w, tri->e1);
 
     float scale = Vector_dot_multiply(p, tri->e1);
-    if (fabs(scale) < EPSILON) {
+    if (scale < EPSILON && scale > -EPSILON) {
         return 1;
     }
 

@@ -18,9 +18,6 @@ Ray Scene_get_ray(Scene *s, float vx, float vy) {
 }
 
 Triangle *Scene_cast_ray(Scene *s, Ray *r) {
-    float closest = INFINITY;
-    Triangle *best_tri = NULL;
-
     for (int i = 0; i < s->obj.n_tris; i++) {
         Triangle *tri = &(s->obj.tris[i].tri);
 
@@ -32,13 +29,9 @@ Triangle *Scene_cast_ray(Scene *s, Ray *r) {
         if (!Intersection_did_intersect(&intersection)) {
             continue;
         }
-        if (intersection.ray_t < closest) {
-            closest = intersection.ray_t;
-            best_tri = tri;
-            break;
-        }
+        return tri;
     }
-    return best_tri;
+    return NULL;
 }
 
 
