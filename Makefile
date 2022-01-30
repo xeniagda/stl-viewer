@@ -1,22 +1,22 @@
-CC ?= gcc
-CCOPTS ?=
+CC ?= clang
+CFLAGS ?= -O3 -flto -ffast-math
 
 all : stl-viewer
 
 stl-viewer : main.c vector.o stl.o triangle.o render.o
-	$(CC) $(CCOPTS) main.c vector.o stl.o triangle.o render.o -o stl-viewer
+	$(CC) $(CFLAGS) main.c vector.o stl.o triangle.o render.o -o stl-viewer
 
 vector.o : vector.c
-	$(CC) $(CCOPTS) -c vector.c -o vector.o
+	$(CC) $(CFLAGS) -c vector.c -o vector.o
 
 stl.o : stl.c
-	$(CC) $(CCOPTS) -c stl.c -o stl.o
+	$(CC) $(CFLAGS) -c stl.c -o stl.o
 
 triangle.o : triangle.c
-	$(CC) $(CCOPTS) -c triangle.c -o triangle.o
+	$(CC) $(CFLAGS) -c triangle.c -o triangle.o
 
 render.o : render.c
-	$(CC) $(CCOPTS) -c render.c -o render.o
+	$(CC) $(CFLAGS) -c render.c -o render.o
 
 clean :
 	rm *.o stl-viewer
