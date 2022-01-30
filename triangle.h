@@ -6,7 +6,9 @@
 
 typedef struct {
     // v0 is internally represented as the "origin" of the triangle
-    Vector v0, v1, v2;
+    Vector v0;
+
+    Vector e1, e2;
 } Triangle;
 
 Triangle Triangle_init(Vector v0, Vector v1, Vector v2);
