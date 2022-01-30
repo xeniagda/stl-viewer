@@ -97,9 +97,6 @@ int main(int argc, char *argv[]) {
         dbg_print_stl_error(err);
     }
 
-    printf("read %lu bytes of data\n", f_size);
-    printf("tri count = %d\n", stl.n_tris);
-
 
     clock_t start = clock();
 
@@ -126,7 +123,7 @@ int main(int argc, char *argv[]) {
         printf("\033[1;1H");
         display(&scene);
 
-        printf("\033[38;5;244m%.1f FPS | %s   \n", i / time_delta, path);
+        printf("\033[38;5;244m%.1f FPS | %s | %d tris  \n", i / time_delta, path, stl.n_tris);
 
         if (time_delta > 10) {
             return 100;
