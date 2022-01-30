@@ -10,6 +10,7 @@ typedef struct {
 } Matrix;
 
 float Vector_dot_multiply(Vector a, Vector b);
+float Vector_norm2(Vector a);
 Vector Vector_cross_multiply(Vector a, Vector b);
 Vector Vector_add(Vector a, Vector b);
 Vector Vector_sub(Vector a, Vector b);

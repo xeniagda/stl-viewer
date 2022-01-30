@@ -1,7 +1,9 @@
+#include <math.h>
+#include <stdlib.h>
+
 #include "render.h"
 #include "vector.h"
 #include "triangle.h"
-#include <math.h>
 
 Ray Scene_get_ray(Scene *s, float vx, float vy) {
     float v0 = atan(s->camera_fov / 2);
@@ -33,9 +35,26 @@ Triangle *Scene_cast_ray(Scene *s, Ray *r) {
         if (intersection.ray_t < closest) {
             closest = intersection.ray_t;
             best_tri = tri;
+            break;
         }
     }
     return best_tri;
+}
+
+
+static Vector _ray_origin;
+int _Tri_compare(const void *v1, const void *v2) {
+    Triangle t1 = ((const STL_Triangle *) v1)->tri;
+    Triangle t2 = ((const STL_Triangle *) v2)->tri;
+    float t1_v0_dist_o = Vector_norm2(Vector_sub(t1.v0, _ray_origin));
+    float t2_v0_dist_o = Vector_norm2(Vector_sub(t2.v0, _ray_origin));
+    return (t1_v0_dist_o > t2_v0_dist_o) - (t1_v0_dist_o < t2_v0_dist_o);
+}
+
+void Scene_presort(Scene *s) {
+    _ray_origin = s->camera_origin;
+
+    qsort(s->obj.tris, s->obj.n_tris, sizeof(STL_Triangle), _Tri_compare);
 }
 
 float Scene_get_brightness(Scene *s, Triangle *tri, Ray *r) {

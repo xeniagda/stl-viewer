@@ -14,6 +14,10 @@ Vector Vector_cross_multiply(Vector a, Vector b) {
     return (Vector) { x, y, z };
 }
 
+float Vector_norm2(Vector a) {
+    return Vector_dot_multiply(a, a);
+}
+
 Vector Vector_add(Vector a, Vector b) {
     return (Vector) { .x = a.x + b.x, .y = a.y + b.y, .z = a.z + b.z };
 }

@@ -119,6 +119,7 @@ int main(int argc, char *argv[]) {
             },
             .camera_fov = 0.69,
         };
+        Scene_presort(&scene);
 
         printf("\033[1;1H");
         display(&scene);

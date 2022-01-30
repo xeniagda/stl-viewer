@@ -23,6 +23,9 @@ typedef struct {
 // May not be normalized
 Ray Scene_get_ray(Scene *s, float vx, float vy);
 
+// NOT thread safe
+void Scene_presort(Scene *s);
+
 // Returns a pointer to the closest triangle, or NULL if none was found
 Triangle *Scene_cast_ray(Scene *s, Ray *r);
 
