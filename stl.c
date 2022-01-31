@@ -14,21 +14,21 @@ void _read_triangle(char *data, STL_Triangle *dest) {
     float *fldata = (float *)data;
 
     Vector norm, v0, v1, v2;
-    norm.x = fldata[0];
-    norm.y = fldata[1];
-    norm.z = fldata[2];
+    memcpy(&norm.x, &fldata[0], sizeof(float));
+    memcpy(&norm.y, &fldata[1], sizeof(float));
+    memcpy(&norm.z, &fldata[2], sizeof(float));
 
-    v0.x = fldata[3];
-    v0.y = fldata[4];
-    v0.z = fldata[5];
+    memcpy(&v0.x, &fldata[3], sizeof(float));
+    memcpy(&v0.y, &fldata[4], sizeof(float));
+    memcpy(&v0.z, &fldata[5], sizeof(float));
 
-    v1.x = fldata[6];
-    v1.y = fldata[7];
-    v1.z = fldata[8];
+    memcpy(&v1.x, &fldata[6], sizeof(float));
+    memcpy(&v1.y, &fldata[7], sizeof(float));
+    memcpy(&v1.z, &fldata[8], sizeof(float));
 
-    v2.x = fldata[9];
-    v2.y = fldata[10];
-    v2.z = fldata[11];
+    memcpy(&v2.x, &fldata[9], sizeof(float));
+    memcpy(&v2.y, &fldata[10], sizeof(float));
+    memcpy(&v2.z, &fldata[11], sizeof(float));
 
     dest->attr = attr;
     dest->norm = norm;
