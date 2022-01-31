@@ -11,24 +11,22 @@ int TRIANGLE_SIZE = 50;
 void _read_triangle(char *data, STL_Triangle *dest) {
     uint32_t attr = *(uint32_t *) (data + 84);
 
-    float *fldata = (float *)data;
-
     Vector norm, v0, v1, v2;
-    memcpy(&norm.x, &fldata[0], sizeof(float));
-    memcpy(&norm.y, &fldata[1], sizeof(float));
-    memcpy(&norm.z, &fldata[2], sizeof(float));
+    memcpy(&norm.x, &data[0], sizeof(float));
+    memcpy(&norm.y, &data[4], sizeof(float));
+    memcpy(&norm.z, &data[8], sizeof(float));
 
-    memcpy(&v0.x, &fldata[3], sizeof(float));
-    memcpy(&v0.y, &fldata[4], sizeof(float));
-    memcpy(&v0.z, &fldata[5], sizeof(float));
+    memcpy(&v0.x, &data[12], sizeof(float));
+    memcpy(&v0.y, &data[16], sizeof(float));
+    memcpy(&v0.z, &data[20], sizeof(float));
 
-    memcpy(&v1.x, &fldata[6], sizeof(float));
-    memcpy(&v1.y, &fldata[7], sizeof(float));
-    memcpy(&v1.z, &fldata[8], sizeof(float));
+    memcpy(&v1.x, &data[24], sizeof(float));
+    memcpy(&v1.y, &data[28], sizeof(float));
+    memcpy(&v1.z, &data[32], sizeof(float));
 
-    memcpy(&v2.x, &fldata[9], sizeof(float));
-    memcpy(&v2.y, &fldata[10], sizeof(float));
-    memcpy(&v2.z, &fldata[11], sizeof(float));
+    memcpy(&v2.x, &data[36], sizeof(float));
+    memcpy(&v2.y, &data[40], sizeof(float));
+    memcpy(&v2.z, &data[44], sizeof(float));
 
     dest->attr = attr;
     dest->norm = norm;
